@@ -1,8 +1,122 @@
 messages:
   - role: system
-    content: ''
+    content: >-
+      you are a world class engineer, full stack developer and deisgner who is
+      an expert in solving complex data systems. You write extremely efficient
+      code.
   - role: user
-    content: ''
+    content: >-
+      Review my repo codebase heavily and the app outline below, all tables,
+      fields, functions, types etc. Then implement a plan for a whole new sync
+      system and remove all old sync and functions. basically if you were to
+      start fresh and create a new sync and db and then fix all components so
+      the backend and frontend fully work and flow correctly. I bascially want
+      to start fresh with a new db and zero functions created yet, so delete all
+      old ones and old code 
+
+
+      Overview of TheSet Application TheSet is a concert setlist voting platform
+      that allows users to: View upcoming shows and artist details. Vote on
+      songs they want to hear at concerts. Explore trending shows and artists.
+      Current State of the Application Backend:
+
+
+      Built on Supabase (PostgreSQL, Edge Functions, Cron). Integrates with
+      external APIs (Ticketmaster, Spotify) for syncing artists, shows, and
+      songs. Key functions like unified-sync and sync-trending handle data
+      synchronization but have issues with reliability, error handling, and data
+      integrity. Frontend:
+
+
+      Built with Next.js (App Router) and React. Pages include Artist, Show, and
+      Upcoming Shows. Lacks robust loading states, error handling, and
+      consistent UI/UX. Database:
+
+
+      Schema supports artists, shows, venues, and songs. Missing unique
+      constraints and optimized indexing. Desired State Backend:
+
+
+      Reliable sync system with robust error handling and monitoring. Idempotent
+      and atomic operations for data integrity. Scalable architecture to handle
+      high API usage. Frontend:
+
+
+      Improved user experience with better loading states, error handling, and
+      responsiveness. Consistent design system and accessibility compliance.
+      Database:
+
+
+      Hardened schema with unique constraints and optimized indexing. Scalable
+      and maintainable structure. 2. Your Task Your task is to:
+
+
+      Fix the Backend Sync System:
+
+
+      Build a robust sync/import system for artists, shows, venues, and songs.
+      Ensure data integrity, error handling, and operational reliability. Update
+      the Frontend:
+
+
+      Update frontend components to align with the new sync system. Improve user
+      experience with better loading states, error handling, and responsiveness.
+      Enhance the Database:
+
+
+      Modify the schema to support the new sync system. Ensure scalability and
+      maintainability. 3. Backend Sync System Plan 3.1. New Sync Architecture
+      Task Queue:
+
+
+      Implement a task queue for syncing artists, shows, venues, and songs. Use
+      exponential backoff for retries. API Integration:
+
+
+      Create dedicated modules for Ticketmaster and Spotify API interactions.
+      Handle rate limits and errors gracefully. Data Transformation:
+
+
+      Map API responses to the database schema with validation. Use a shared
+      utility for consistent data transformation. 3.2. Key Features Idempotency:
+      Ensure all sync operations are idempotent to avoid duplicate entries.
+      Logging and Monitoring: Use structured logging for better traceability.
+      Implement monitoring for sync tasks and API calls. Atomic Updates: Use
+      transactions to ensure atomic updates to the database. 4. Frontend Update
+      Plan 4.1. Component Updates Artist Page:
+
+
+      Display upcoming shows fetched from the backend. Add loading skeletons and
+      error messages. Show Page:
+
+
+      Show detailed information about shows, including setlists and venues. Use
+      Next.js Suspense for data fetching. Upcoming Shows Page:
+
+
+      Fix the "Beyonce only" issue by ensuring backend reliability. Add
+      pagination and filtering options. 4.2. UI/UX Enhancements Accessibility:
+      Ensure all components are keyboard navigable and screen-reader friendly.
+      Design Consistency: Use a unified design system with reusable components.
+      5. Database Enhancements 5.1. Schema Updates Unique Constraints: Add
+      unique constraints to prevent duplicate entries. Indexes: Optimize indexes
+      for frequent queries. Foreign Keys: Define cascade actions for foreign
+      keys. 5.2. Migration Plan Write migration scripts for schema changes. Test
+      migrations in a staging environment before production deployment. 6.
+      Testing and Deployment 6.1. Testing Backend:
+
+
+      Write unit tests for sync functions. Add integration tests for API
+      interactions. Frontend:
+
+
+      Perform end-to-end testing for all pages. 6.2. Deployment Use a CI/CD
+      pipeline for automated testing and deployment. Deploy changes
+      incrementally to minimize downtime. 7. Conclusion This plan provides a
+      detailed roadmap to implement a robust sync system, update frontend
+      components, and enhance the database schema. By following this plan,
+      TheSet application will achieve improved reliability, scalability, and
+      user experience.
 model: openai/gpt-4o
 modelParameters:
   max_tokens: 4096
