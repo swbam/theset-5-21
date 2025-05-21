@@ -1,0 +1,3 @@
+# Ignore Next.js specific files that aren't compatible with Vite
+next-env.d.ts
+next.config.js

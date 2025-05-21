@@ -1,0 +1,15 @@
+project_id = "kzjnkqeosrycfpxjwhil"
+
+[db]
+port = 54322
+
+[api]
+port = 8080
+
+[auth]
+site_url = "https://theset-verceledit.vercel.app"
+additional_redirect_urls = [
+  "http://localhost:8080/auth/callback",
+  "http://localhost:8081/auth/callback",
+  "https://theset-verceledit.vercel.app/auth/callback"
+]

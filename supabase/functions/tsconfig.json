@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"], // Include DOM for fetch etc.
+    "moduleResolution": "node", // Keep node-like resolution
+    "allowImportingTsExtensions": true, // Allow '.ts' in import paths for Deno
+    "strict": true, // Recommended for functions
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true, // Required by Deno
+    "noEmit": true, // Functions are bundled, not emitted individually
+    "jsx": "react-jsx", // Or "preserve" if needed
+    // Remove the problematic 'types' array
+    // "types": ["https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts"], 
+    "paths": {
+      // Allow importing shared code using a path alias
+      "@shared/*": ["./_shared/*"]
+    },
+    "baseUrl": "." // Set base URL for path aliases
+  },
+  "include": ["./**/*.ts"], // Include all ts files within the functions directory
+  "exclude": ["node_modules"]
+}

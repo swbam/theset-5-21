@@ -1,0 +1,1 @@
+-- Create SQL function for atomic voting

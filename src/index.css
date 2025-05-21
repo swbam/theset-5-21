@@ -1,0 +1,216 @@
+/* Import Overpass font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%; /* Pure black background like X/Twitter */
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 7%; /* Just slightly lighter than background */
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
+
+    /* Mint green from Grupi UI */
+    --primary: 158 84% 60%;
+    --primary-foreground: 0 0% 0%; /* Black text on mint green */
+
+    --secondary: 0 0% 12%; /* Dark grey secondary */
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
+
+    /* Mint green for accents */
+    --accent: 158 84% 60%;
+    --accent-foreground: 0 0% 0%; /* Black text on mint green */
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 15%; /* Grey border */
+    --input: 0 0% 15%;
+    --ring: 158 84% 60%; /* Mint green for focus rings */
+
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 158 84% 60%; /* Mint green */
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 158 84% 60%; /* Mint green */
+
+    --radius: 0.5rem;
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    /* Mint green from Grupi UI */
+    --primary: 158 84% 60%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 46%;
+
+    /* Mint green for accents */
+    --accent: 158 84% 60%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 158 84% 60%; /* Mint green */
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 26%;
+    --sidebar-primary: 158 84% 60%; /* Mint green */
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 158 84% 95%;
+    --sidebar-accent-foreground: 158 84% 30%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 158 84% 60%; /* Mint green */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border selection:bg-primary/20 selection:text-black;
+  }
+
+  html, body {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-black/40 backdrop-blur-md rounded-xl border border-white/10 shadow-lg;
+  }
+  
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-md rounded-xl border border-white/10 shadow-lg;
+  }
+  
+  .story-link {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .app-gradient {
+    @apply bg-gradient-to-b from-black to-[#15181C]; /* Twitter dark mode gradient */
+  }
+
+  .card-gradient {
+    @apply bg-gradient-to-b from-[#15181C] to-[#1A1D23]; /* Slightly lighter gradient for cards */
+  }
+
+  .header-gradient {
+    @apply bg-gradient-to-b from-black/90 via-[#15181C]/80 to-transparent;
+  }
+  
+  .neo-blur {
+    @apply backdrop-blur-2xl bg-black/40 border border-white/10;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-br from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  /* Button styles updated for Grupi theme */
+  .btn-twitter {
+    @apply rounded-full bg-primary hover:bg-primary/90 text-black font-medium transition-colors;
+  }
+
+  .btn-twitter-outline {
+    @apply rounded-full border border-primary text-primary hover:bg-primary/10 font-medium transition-colors;
+  }
+  
+  /* Grupi-specific styles */
+  .btn-grupi {
+    @apply rounded-full bg-primary hover:bg-primary/90 text-black font-medium transition-colors;
+  }
+  
+  /* Tab navigation styles for Grupi UI */
+  .tab-container {
+    @apply flex border-b border-border;
+  }
+  
+  .tab-item {
+    @apply px-4 py-2 font-medium transition-colors;
+  }
+  
+  .active-tab {
+    @apply text-primary border-b-2 border-primary;
+  }
+  
+  .inactive-tab {
+    @apply text-foreground hover:text-primary/80;
+  }
+  
+  /* Follow button style like in Grupi screenshot */
+  .follow-button {
+    @apply rounded-full bg-primary hover:bg-primary/90 text-black font-medium py-2 px-6 flex items-center justify-center gap-2 transition-colors;
+  }
+  
+  /* Additional Grupi-specific UI components */
+  .artist-card {
+    @apply bg-card rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/20;
+  }
+  
+  .event-card {
+    @apply bg-card rounded-xl p-4 border border-border hover:border-primary/30 transition-colors;
+  }
+  
+  .action-icon {
+    @apply text-foreground hover:text-primary transition-colors cursor-pointer;
+  }
+  
+  /* Mint green badge */
+  .badge-grupi {
+    @apply bg-primary/20 text-primary px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  /* Custom selection color */
+  ::selection {
+    @apply bg-primary/30 text-foreground;
+  }
+}
