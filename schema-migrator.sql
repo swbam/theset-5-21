@@ -214,6 +214,36 @@ CREATE TABLE IF NOT EXISTS public.trending_shows_cache (
   cached_at TIMESTAMPTZ DEFAULT now()
 );
 
+-- Enable Row Level Security on trending_shows_cache table
+ALTER TABLE public.trending_shows_cache ENABLE ROW LEVEL SECURITY;
+
+-- Create a policy to allow public read access (both anonymous and authenticated users)
+CREATE POLICY "Public Read Access for trending_shows_cache"
+ON public.trending_shows_cache
+FOR SELECT
+TO public
+USING (true);
+
+-- Create a policy to allow only authenticated users to insert
+CREATE POLICY "Authenticated Insert Access for trending_shows_cache"
+ON public.trending_shows_cache
+FOR INSERT
+TO authenticated
+WITH CHECK (true);
+
+-- Create a policy to allow only service role to update or delete
+CREATE POLICY "Service Role Full Access for trending_shows_cache"
+ON public.trending_shows_cache
+FOR ALL
+TO service_role
+USING (true)
+WITH CHECK (true);
+
+-- Grant necessary permissions
+GRANT SELECT ON public.trending_shows_cache TO anon;
+GRANT SELECT ON public.trending_shows_cache TO authenticated;
+GRANT ALL ON public.trending_shows_cache TO service_role;
+
 -----------------------------------------
 -- User Profiles & Preferences
 -----------------------------------------

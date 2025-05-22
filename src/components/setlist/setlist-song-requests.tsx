@@ -18,11 +18,11 @@ import { Song } from "@/lib/types"; // Import the main Song type
 interface Props {
   showId: string;
   artistSongs: Song[]; // Accept the full artist song catalog
-  // setlistId: string; // Removed unused prop
+  setlistId: string; // Re-add the prop as it's being used by parent component
 }
 
 // Update component signature
-export function SetlistSongRequests({ showId, artistSongs }: Props) {
+export function SetlistSongRequests({ showId, artistSongs, setlistId }: Props) {
   // const router = useRouter(); // Removed unused variable
   const [votedSongs, setVotedSongs] = useState<Record<string, boolean>>({});
   // Use artistSongs for the display list, but fetch actual vote counts from the database
