@@ -15,7 +15,7 @@ const nextConfig = {
 
   // Configure environment variables
   env: {
-    SUPABASE_URL: process.env.SUPABASE_URL || "https://kzjnkqeosrycfpxjwhil.supabase.co",
+    SUPABASE_URL: process.env.SUPABASE_URL || "https://gruqanluymjblstdjgad.supabase.co",
     SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6am5rcWVvc3J5Y2ZweGp3aGlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI2ODM3ODMsImV4cCI6MjA1ODI1OTc4M30.KOriVTUxlnfiBpWmVrlO4xHM7nniizLgXQ49f2K22UM",
     SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY,
   },

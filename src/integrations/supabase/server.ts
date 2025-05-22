@@ -23,7 +23,7 @@ loadEnv();
 const SUPABASE_URL = process.env.SUPABASE_URL || 
                      process.env.NEXT_PUBLIC_SUPABASE_URL || 
                      process.env.VITE_SUPABASE_URL || 
-                     "https://kzjnkqeosrycfpxjwhil.supabase.co";
+                     "https://gruqanluymjblstdjgad.supabase.co";
 
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY || 
                              process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || 

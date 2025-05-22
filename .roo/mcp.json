@@ -20,7 +20,7 @@
       "command": "/Users/seth/.local/bin/supabase-mcp-server",
       "args": [],
       "env": {
-        "SUPABASE_PROJECT_REF": "kzjnkqeosrycfpxjwhil",
+        "SUPABASE_PROJECT_REF": "gruqanluymjblstdjgad",
         "SUPABASE_DB_PASSWORD": "Bambseth1590",
         "SUPABASE_REGION": "us-east-1",
         "SUPABASE_ACCESS_TOKEN": "sbp_883ccb9a41028402909b5fb16dbb19fd2539c147",
