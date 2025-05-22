@@ -17,7 +17,17 @@ import { Link } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const AdminArtists = () => {
-  const [artists, setArtists] = useState([]);
+  type Artist = {
+    id: string;
+    name: string;
+    image_url?: string;
+    spotify_id?: string;
+    upcoming_shows?: number;
+    popularity?: number;
+    updated_at: string;
+  };
+  
+  const [artists, setArtists] = useState<Artist[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);

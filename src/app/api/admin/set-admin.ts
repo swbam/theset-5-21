@@ -1,10 +1,13 @@
 import { supabase } from "@/integrations/supabase/client";
-
-// API handler for setting the current user as admin
+ 
 export async function handler(req: Request) {
+  console.info("Set-admin API invoked. Request URL:", req.url);
   try {
     // Get session to check authentication
     const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      console.info("Session obtained for user:", session.user.id);
+    }
     
     if (!session) {
       return Response.json({ 

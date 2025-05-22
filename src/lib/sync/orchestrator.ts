@@ -97,6 +97,7 @@ export async function orchestrateSync(
         }
       }
     });
+    console.log(`Batch ${Math.floor(i / parallelLimit) + 1} processed: Completed Tasks: ${completedCount}, Failed Tasks: ${failedCount}`);
   }
   
   // Update main task if tracking is enabled
@@ -130,10 +131,11 @@ export async function orchestrateSync(
  * Process a single sync task
  */
 async function processTask(
-  task: SyncTask, 
+  task: SyncTask,
   parentTaskId?: string,
   retry: boolean = true
 ): Promise<{ success: boolean; error?: string }> {
+  const startTime = Date.now();
   const supabase = createClient();
   let taskId: string | undefined;
   

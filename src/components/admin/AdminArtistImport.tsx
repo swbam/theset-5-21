@@ -370,7 +370,7 @@ const AdminArtistImport = () => {
       setRecentImports(prev => [artistId, ...prev.filter(id => id !== artistId)].slice(0, 5));
       
       // Fetch upcoming shows automatically
-      if (artist.upcomingEvents && artist.upcomingEvents > 0) {
+      if ((artist.upcomingEvents != null ? (typeof artist.upcomingEvents === 'object' ? (artist.upcomingEvents._total ?? 0) : (artist.upcomingEvents ?? 0)) : 0) > 0) {
         await importArtistShows(artistId, data.data.id, artist.name);
       }
       

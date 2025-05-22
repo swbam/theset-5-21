@@ -1,68 +1,25 @@
 {
   "compilerOptions": {
-    // --- Core Vite/React Settings (from tsconfig.app.json) ---
-    "target": "ES2020", // Or newer like "ESNext"
-    "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "module": "ESNext",
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
     "skipLibCheck": true,
-    /* Module Resolution */
-    "moduleResolution": "node", // Change back to "node" for Vercel compatibility
-    // "allowImportingTsExtensions": true, // Remove this unsupported option
-    "resolveJsonModule": true, // Keep this
-    "isolatedModules": true, // Keep this
-    "noEmit": true, // Keep this - Vite handles emitting
-    "jsx": "preserve", // Use react-jsx for Vite compatibility
-    "types": [
-      "vite/client",
-      "node",
-      "next"
-    ], // Add "next" for Next.js types
-    /* Linting & Strictness (Adjust as needed) */
-    "strict": false, // Or true for stricter checks
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitAny": false,
-    "noFallthroughCasesInSwitch": false,
-    // --- Settings from original tsconfig.json ---
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    },
-    "allowJs": true, // Keep if you have JS files
-    "esModuleInterop": true, // Keep for compatibility
-    "incremental": true, // Keep for faster builds
-    // Removed comment lines
-    "strictNullChecks": true // Keep this if desired
-    ,
-    "plugins": [
-      {
-        "name": "next"
-      }
+    "types": ["node", "jest"],
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "src/@types"
     ]
   },
-  "include": [
-    "src/**/*.ts", // Include all TS files in src
-    "src/**/*.tsx", // Include all TSX files in src
-    "vite.config.ts", // Include Vite config file
-    "next-env.d.ts" // Include Next.js environment types
-    // Add other specific files/patterns if needed
-    // Removed include for ".next/types/**/*.ts"
-    ,
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    ".next", // Exclude Next.js build output
-    "supabase/functions" // Exclude functions dir (it has its own tsconfig)
-    // Add other specific exclusions if needed
-  ]
-  // Removed "files": [] and "references": [...]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

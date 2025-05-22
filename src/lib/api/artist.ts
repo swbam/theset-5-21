@@ -7,6 +7,10 @@ export interface ArtistWithEvents { // Add export keyword
   upcomingShows?: number;
   genres?: string[];
   url?: string;
+  upcomingEvents?: {
+    _total?: number;
+    [key: string]: any;
+  };
 }
 
 /**
