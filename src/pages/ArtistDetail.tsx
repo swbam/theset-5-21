@@ -1,55 +1,46 @@
+"use client";
+import React, { useState, useEffect } from "react";
 
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import ArtistHeader from '@/components/artist/ArtistHeader';
-import UpcomingShows from '@/components/artist/UpcomingShows';
-import ArtistDetailSkeleton from '@/components/artist/ArtistDetailSkeleton';
-import ArtistNotFound from '@/components/artist/ArtistNotFound';
-import PastSetlists from '@/components/artists/PastSetlists';
-import { useArtistDetail } from '@/hooks/use-artist-detail';
+interface Artist {
+  id: string;
+  name: string;
+  bio: string;
+}
 
-const ArtistDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  const { artist, shows, loading, error } = useArtistDetail(id);
-  
-  // Removed the useEffect hook that was showing error toasts
-  
-  // Show skeleton immediately during initial load
-  if (loading.artist && !artist) {
-    return <ArtistDetailSkeleton />;
+const ArtistDetail: React.FC = () => {
+  const [artist, setArtist] = useState<Artist | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchArtist = async () => {
+      try {
+        // TODO: Replace with real API call.
+        const fetchedArtist: Artist = {
+          id: "1",
+          name: "Sample Artist",
+          bio: "This is a sample artist biography."
+        };
+        setArtist(fetchedArtist);
+      } catch (err) {
+        setError("Failed to load artist details.");
+      }
+    };
+
+    fetchArtist();
+  }, []);
+
+  if (error) {
+    return <div className="p-4 text-red-600">{error}</div>;
   }
 
-  if (error.artist || !id || !artist) {
-    console.error("Artist detail error:", error.artist);
-    return <ArtistNotFound />;
+  if (!artist) {
+    return <div className="p-4">Loading artist details...</div>;
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
-      <main className="flex-grow">
-        <ArtistHeader 
-          artistName={artist.name} 
-          artistImage={artist.image}
-          upcomingShowsCount={shows.length}
-        />
-        
-        <UpcomingShows 
-          shows={shows}
-          artistName={artist.name}
-          isLoading={loading.shows}
-        />
-        
-        <PastSetlists 
-          artistId={id}
-          artistName={artist.name}
-        />
-      </main>
-      
-      <Footer />
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-2">{artist.name}</h1>
+      <p>{artist.bio}</p>
     </div>
   );
 };

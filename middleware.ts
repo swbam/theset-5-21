@@ -1,7 +1,17 @@
-// This file is intentionally empty to avoid Next.js dependency errors
-// The original Next.js middleware functionality has been disabled for Vite compatibility
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-// For Vite/React projects, middleware functionality should be implemented differently,
-// such as using React Router's route guards or a custom auth provider
+export function middleware(req: NextRequest) {
+  // Secure admin and admin API routes
+  if (req.nextUrl.pathname.startsWith('/admin') || req.nextUrl.pathname.startsWith('/api/admin')) {
+    const token = req.cookies.get('token');
+    if (!token) {
+      return NextResponse.redirect(new URL('/login', req.url));
+    }
+  }
+  return NextResponse.next();
+}
 
-export {}; // Export an empty object to make TypeScript happy
+export const config = {
+  matcher: ['/admin/:path*', '/api/admin/:path*']
+};

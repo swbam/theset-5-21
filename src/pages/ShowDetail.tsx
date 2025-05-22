@@ -1,94 +1,54 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import Card from "@/components/ui/card";
 
-import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import ShowHeader from '@/components/shows/ShowHeader';
-import SetlistSection from '@/components/shows/SetlistSection';
-import ShowDetailSkeleton from '@/components/shows/ShowDetailSkeleton';
-import ShowNotFound from '@/components/shows/ShowNotFound';
-import { useShowDetail } from '@/hooks/use-show-detail';
+interface Show {
+  id: string;
+  title: string;
+  venue: string;
+  date: string;
+  description: string;
+}
 
-const ShowDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  
+const ShowDetail: React.FC = () => {
+  const [show, setShow] = useState<Show | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  
-  const { 
-    show,
-    setlist,
-    loading,
-    error,
-    connected,
-    songManagement,
-    availableTracks,
-    documentMetadata
-  } = useShowDetail(id);
-
-  // Set document metadata with error handling
-  useEffect(() => {
-    if (documentMetadata.title) {
-      document.title = documentMetadata.title;
-      
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription && documentMetadata.description) {
-        metaDescription.setAttribute('content', documentMetadata.description);
+    const fetchShow = async () => {
+      try {
+        // Simulate an API call to fetch show details
+        const fetchedShow: Show = {
+          id: "123",
+          title: "Summer Concert",
+          venue: "Big Arena",
+          date: "2025-07-15",
+          description: "An amazing summer concert featuring top artists."
+        };
+        setShow(fetchedShow);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to load show details.");
+        setLoading(false);
       }
-    }
-  }, [documentMetadata]);
-  
-  // Handle navigation on error
-  useEffect(() => {
-    if (!loading.show && error.show) {
-      console.error("Show detail error:", error.show);
-      
-      // Add a small delay before navigating to allow the toast to be seen
-      const timer = setTimeout(() => {
-        navigate('/shows', { replace: true });
-      }, 3000);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [show, loading.show, error.show, navigate]);
-  
-  // Show loading state while fetching show details
-  if (loading.show && !show) {
-    return <ShowDetailSkeleton />;
-  }
-  
-  // Handle error states with fallback UI
-  if (error.show || !show) {
-    return <ShowNotFound />;
-  }
-  
+    };
+
+    fetchShow();
+  }, []);
+
+  if (loading) return <div className="p-4">Loading show details...</div>;
+  if (error) return <div className="p-4 text-red-600">{error}</div>;
+  if (!show) return <div className="p-4">No show details available.</div>;
+
   return (
-    <div className="min-h-screen flex flex-col bg-black">
-      <Navbar />
-      
-      <main className="flex-grow">
-        <ShowHeader show={show} />
-        <SetlistSection 
-          setlist={setlist || []}
-          isConnected={connected}
-          isLoadingTracks={loading.tracks}
-          handleVote={songManagement.handleVote}
-          showId={id || ''}
-          showName={show.name || ''}
-          artistName={show.artist?.name || 'Artist'}
-          availableTracks={availableTracks || []}
-          isLoadingAllTracks={loading.allTracks}
-          selectedTrack={songManagement.selectedTrack}
-          setSelectedTrack={songManagement.setSelectedTrack}
-          handleAddSong={songManagement.handleAddSong}
-          anonymousVoteCount={songManagement.anonymousVoteCount}
-        />
-      </main>
-      
-      <Footer />
+    <div className="p-4">
+      <Card>
+        <h1 className="text-3xl font-bold mb-2">{show.title}</h1>
+        <p className="mb-2"><strong>Venue:</strong> {show.venue}</p>
+        <p className="mb-2"><strong>Date:</strong> {show.date}</p>
+        <p>{show.description}</p>
+      </Card>
     </div>
   );
 };

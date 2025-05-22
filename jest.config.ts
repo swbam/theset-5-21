@@ -1,22 +1,22 @@
-import type { Config } from '@jest/types';
-
-const config: Config.InitialOptions = {
+/** @type {import('ts-jest').InitialOptionsTsJest} */
+const config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/$1',
+    '^@/(.*)$': '<rootDir>/src/$1'
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  collectCoverage: true,
-  coverageDirectory: 'coverage',
-  coveragePathIgnorePatterns: [
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest'
+  },
+  testPathIgnorePatterns: [
     '/node_modules/',
-    '/tests/',
-    '/.next/',
-    '/.supabase/'
+    '/.next/'
   ],
-  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
-  verbose: true,
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.json'
+    }
+  }
 };
 
-export default config; 
+export default config;

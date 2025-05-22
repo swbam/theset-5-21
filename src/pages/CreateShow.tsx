@@ -1,51 +1,86 @@
+"use client";
+import React, { useState } from "react";
+import Card from "@/components/ui/card";
+import Button from "@/components/ui/button";
+import Alert from "@/components/ui/alert";
 
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import CreateShowForm from '@/components/shows/CreateShowForm';
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/auth/AuthContext';
+const CreateShow: React.FC = () => {
+  const [title, setTitle] = useState("");
+  const [venue, setVenue] = useState("");
+  const [date, setDate] = useState("");
+  const [description, setDescription] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-const CreateShow = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    navigate('/login');
-    return null;
-  }
-  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!title || !venue || !date || !description) {
+      setErrorMessage("All fields are required.");
+      return;
+    }
+    setErrorMessage("");
+    try {
+      // Simulate API call for creating a show
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setSuccessMessage("Show created successfully!");
+      // Clear the form fields after submission
+      setTitle("");
+      setVenue("");
+      setDate("");
+      setDescription("");
+    } catch (error) {
+      setErrorMessage("Failed to create show.");
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
-      <main className="flex-grow px-6 md:px-8 lg:px-12 py-12">
-        <div className="max-w-2xl mx-auto">
-          <Button 
-            variant="ghost" 
-            className="mb-6" 
-            onClick={() => navigate(-1)}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
-          </Button>
-          
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-4">Create a New Show</h1>
-            <p className="text-muted-foreground">
-              Add a new concert to the platform and let fans vote on the setlist
-            </p>
+    <div className="p-4">
+      <h1 className="text-3xl font-bold mb-4">Create New Show</h1>
+      {successMessage && <Alert variant="success">{successMessage}</Alert>}
+      {errorMessage && <Alert variant="error">{errorMessage}</Alert>}
+      <Card className="p-6 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block font-medium mb-1">Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full border p-2 rounded"
+              placeholder="Enter show title"
+            />
           </div>
-          
-          <div className="bg-card border border-border rounded-xl p-6 md:p-8">
-            <CreateShowForm />
+          <div>
+            <label className="block font-medium mb-1">Venue</label>
+            <input
+              type="text"
+              value={venue}
+              onChange={(e) => setVenue(e.target.value)}
+              className="w-full border p-2 rounded"
+              placeholder="Enter venue"
+            />
           </div>
-        </div>
-      </main>
-      
-      <Footer />
+          <div>
+            <label className="block font-medium mb-1">Date</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full border p-2 rounded"
+            />
+          </div>
+          <div>
+            <label className="block font-medium mb-1">Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full border p-2 rounded"
+              placeholder="Enter show description"
+            ></textarea>
+          </div>
+          <Button type="submit">Create Show</Button>
+        </form>
+      </Card>
     </div>
   );
 };

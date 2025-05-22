@@ -1,126 +1,50 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import Card from "@/components/ui/card";
 
-import React, { useState, useEffect } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import SearchBar from '@/components/ui/SearchBar';
-import ArtistSearchResults from '@/components/artists/ArtistSearchResults';
-import FeaturedArtists from '@/components/home/FeaturedArtists';
-import GenreBrowser from '@/components/artists/GenreBrowser';
-import { useDocumentTitle } from '@/hooks/use-document-title';
+interface Artist {
+  id: string;
+  name: string;
+  genre: string;
+}
 
-const Artists = () => {
-  const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const queryParam = searchParams.get('q') || '';
-  
-  const [searchQuery, setSearchQuery] = useState(queryParam);
-  const [isSearching, setIsSearching] = useState(!!queryParam);
-  const [isLoading, setIsLoading] = useState(false);
-  const [activeGenre, setActiveGenre] = useState<string | null>(searchParams.get('genre'));
-  
-  // Determine if we're on the /shows path
-  const isShowsPage = location.pathname.startsWith('/shows');
-  
-  // Set page title based on path
-  const pageTitle = isShowsPage ? "Upcoming Shows" : "Discover Artists";
-  
-  // Set document title
-  useDocumentTitle(
-    pageTitle,
-    isShowsPage 
-      ? 'Find upcoming concerts and vote on what songs will be played'
-      : 'Discover artists with upcoming shows and influence their setlists'
-  );
+const Artists: React.FC = () => {
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Update search query when URL parameter changes
   useEffect(() => {
-    if (queryParam !== searchQuery) {
-      setSearchQuery(queryParam);
-      setIsSearching(!!queryParam);
-    }
-  }, [queryParam]);
-
-  const handleSearch = async (query: string) => {
-    setSearchQuery(query);
-    setIsSearching(!!query);
-    setIsLoading(true);
-
-    // Update URL with search query
-    if (query) {
-      setSearchParams(prev => {
-        prev.set('q', query);
-        if (activeGenre) prev.delete('genre');
-        return prev;
-      });
-    } else {
-      setSearchParams(prev => {
-        prev.delete('q');
-        return prev;
-      });
-    }
-
-    // API call happens in the ArtistSearchResults component
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  };
-
-  const handleGenreChange = (genre: string | null) => {
-    setActiveGenre(genre);
-    
-    // Update URL with genre parameter
-    setSearchParams(prev => {
-      if (genre) {
-        prev.set('genre', genre);
-        prev.delete('q');
-      } else {
-        prev.delete('genre');
+    const fetchArtists = async () => {
+      try {
+        // Simulate fetching artist data; replace with a real API call as needed.
+        const data: Artist[] = [
+          { id: "1", name: "Artist One", genre: "Rock" },
+          { id: "2", name: "Artist Two", genre: "Jazz" }
+        ];
+        setArtists(data);
+      } catch (err) {
+        setError("Failed to fetch artists.");
+      } finally {
+        setLoading(false);
       }
-      return prev;
-    });
-    
-    setIsSearching(false);
-    setSearchQuery('');
-  };
+    };
+    fetchArtists();
+  }, []);
+
+  if (loading) return <div className="p-4">Loading artists...</div>;
+  if (error) return <div className="p-4 text-red-600">{error}</div>;
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
-      <main className="flex-grow">
-        <section className="px-6 py-12 md:px-8 lg:px-12 bg-gradient-to-b from-secondary/30 to-background">
-          <div className="max-w-7xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-bold mb-6">{pageTitle}</h1>
-            
-            <SearchBar 
-              onSearch={handleSearch}
-              onChange={handleSearch}
-              placeholder={isShowsPage ? "Search for shows..." : "Search for artists..."}
-              className="mb-8 max-w-2xl"
-              value={searchQuery}
-              disableRedirect={true}
-            />
-            
-            {isSearching ? (
-              <ArtistSearchResults 
-                query={searchQuery}
-              />
-            ) : (
-              <div className="space-y-16">
-                <FeaturedArtists />
-                
-                <GenreBrowser 
-                  activeGenre={activeGenre}
-                  setActiveGenre={handleGenreChange}
-                />
-              </div>
-            )}
-          </div>
-        </section>
-      </main>
-      
-      <Footer />
+    <div className="p-4">
+      <h1 className="text-3xl font-bold mb-4">Artists</h1>
+      <div className="grid grid-cols-1 gap-4">
+        {artists.map((artist) => (
+          <Card key={artist.id} className="p-4">
+            <h2 className="font-bold">{artist.name}</h2>
+            <p className="text-sm text-gray-600">{artist.genre}</p>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };
