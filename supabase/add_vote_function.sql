@@ -110,3 +110,23 @@ GRANT EXECUTE ON FUNCTION add_song_vote TO authenticated;
 GRANT EXECUTE ON FUNCTION get_setlist_with_votes TO authenticated;
 GRANT EXECUTE ON FUNCTION get_setlist_with_votes TO anon;
 GRANT EXECUTE ON FUNCTION create_vote_procedures TO authenticated; 
+-- RPC function for atomic voting via upsert on setlists_votes table
+CREATE OR REPLACE FUNCTION rpc_vote(p_setlist_id UUID)
+RETURNS BOOLEAN
+LANGUAGE plpgsql SECURITY DEFINER
+AS $$
+DECLARE
+  lock_key bigint;
+BEGIN
+  -- Convert UUID to a bigint lock key using hashtext
+  lock_key := abs(hashtext(p_setlist_id::text)::bigint);
+  PERFORM pg_advisory_xact_lock(lock_key);
+  INSERT INTO setlists_votes (user_id, setlist_id, vote)
+  VALUES (auth.uid(), p_setlist_id, 1)
+  ON CONFLICT (user_id, setlist_id)
+  DO UPDATE SET vote = setlists_votes.vote + 1;
+  RETURN TRUE;
+END;
+$$;
+
+GRANT EXECUTE ON FUNCTION rpc_vote TO authenticated;

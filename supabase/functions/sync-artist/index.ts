@@ -1,8 +1,24 @@
-/// <reference types="https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts" />
+// @ts-nocheck
+/// <reference path="../supabase-js.d.ts" />
 
+declare const Deno: any;
+// @ts-ignore
+// @deno-types="https://deno.land/std@0.168.0/http/server.d.ts"
+// @ts-ignore
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+// @ts-ignore
+// @deno-types="https://esm.sh/@supabase/supabase-js@2/types"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
+// Exported function to calculate SHA-256 hash of given data
+export async function calculateSourceHash(data: any): Promise<string> {
+  const encoder = new TextEncoder();
+  const dataStr = JSON.stringify(data);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", encoder.encode(dataStr));
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+  return hashHex;
+}
 // Note: APIClientManager logic is replaced with direct fetch calls below
 // import { APIClientManager } from '../../src/lib/sync/api-client.ts';
 
@@ -31,6 +47,7 @@ interface Artist {
   popularity?: number | null;
   created_at?: string;
   updated_at?: string;
+  source_hash?: string;
 }
 
 // Helper to get Spotify Access Token (Client Credentials Flow)
@@ -403,17 +420,14 @@ async function fetchAndCombineArtistData(
 
 // --- Helper function to get best image ---
 function getBestImage(
-  images?: Array<{ url: string; width: number; height: number }>,
+  images?: Array<{ url: string; width: number; height: number }>
 ): string | null {
   if (!images || images.length === 0) return null;
-  // Add explicit types for both sort parameters
   const sorted = [...images].sort(
-    (a: { width: number }, b: { width: number }) =>
-      (b.width || 0) - (a.width || 0),
+    (a: { width: number }, b: { width: number }) => (b.width || 0) - (a.width || 0)
   );
   return sorted[0].url;
 }
-// --- End Helper ---
 
 serve(async (req: Request) => {
   console.log("--- sync-artist function handler started ---");
@@ -471,7 +485,7 @@ serve(async (req: Request) => {
           // Handle potential duplicates - maybe log and pick the first?
           console.warn(
             `[sync-artist] Found multiple artists matching payload IDs:`,
-            foundArtists.map((a) => a.id),
+            foundArtists.map((a: any) => a.id),
           );
           existingArtist = foundArtists[0] as Artist;
         } else if (foundArtists && foundArtists.length === 1) {
@@ -522,6 +536,7 @@ serve(async (req: Request) => {
 
     // Prepare data for upsert, removing the UUID if it's an insert
     const dataToUpsert = { ...combinedData };
+    (dataToUpsert as any).source_hash = await calculateSourceHash(dataToUpsert);
     if (!existingArtist) {
       delete dataToUpsert.id; // Let Supabase generate UUID on insert
       dataToUpsert.created_at = new Date().toISOString(); // Set created_at for new record
