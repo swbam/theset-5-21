@@ -2,7 +2,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { APIClientManager } from './api-client';
 import { IncrementalSyncService } from './incremental';
 import { SyncOptions, SyncResult, SetlistData } from './types';
-import { Show, Song } from '@/lib/types';
+// Show import removed
+import { Song } from '@/lib/types';
 
 // --- Interfaces for API Responses ---
 // Simplified Setlist.fm response structures

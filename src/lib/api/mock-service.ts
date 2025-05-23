@@ -1,4 +1,4 @@
-import { toast } from "sonner";
+// import { toast } from "sonner"; // Removed unused import
 
 /**
  * Helper function to format an artist name for use in URLs and IDs

@@ -183,10 +183,10 @@ export class VenueSyncService {
       ) as TmVenueResponse | null; // Assert type for single venue fetch
       
       if (tmData) {
-        const address = [
-          tmData.address?.line1,
-          tmData.city?.name
-        ].filter(Boolean).join(', ');
+        // const address = [ // Commented out: Unused variable
+        //   tmData.address?.line1,
+        //   tmData.city?.name
+        // ].filter(Boolean).join(', ');
         
         // Simplify object creation and explicitly cast
         venue = {

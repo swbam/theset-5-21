@@ -21,7 +21,7 @@ export { fetchFeaturedShows } from './api/shows/featured-shows';
 // Removed export for './api/shows' as the file was deleted (logic moved to Edge Functions)
 // Removed export for database-utils as the file was deleted (logic moved to Edge Functions)
 // Setlist.fm related functions
-export const fetchPastSetlists = async (artistId: string, artistName: string) => {
+export const fetchPastSetlists = async (_artistId: string, _artistName: string) => { // Parameters prefixed
   try {
     // Directly return hardcoded past setlists data as fallback
     return [];

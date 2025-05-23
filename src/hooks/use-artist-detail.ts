@@ -5,7 +5,7 @@ import { fetchArtistById } from '@/lib/api/artist';
 import { Show } from '@/lib/types'; // Import Show type from central types file
 import { fetchArtistEvents } from '@/lib/ticketmaster';
 import { useEffect } from 'react';
-import { toast } from 'sonner';
+// import { toast } from 'sonner'; // Removed unused import
 import { supabase } from '@/integrations/supabase/client'; // Import supabase client
 
 // Define the return type for the hook

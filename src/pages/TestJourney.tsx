@@ -11,10 +11,10 @@ import ArtistSearchResults from '@/components/artists/ArtistSearchResults';
 import { TEST_ARTIST_ID, TEST_ARTIST_NAME } from '@/tests/journey/config';
 
 // Define interface for ArtistSearchResults component
-interface ArtistSearchResultsProps {
-  query: string;
-  onSelect: (artist: any) => void;
-}
+// interface ArtistSearchResultsProps { // Removed unused local interface
+//   query: string;
+//   onSelect: (artist: any) => void;
+// }
 
 const TestJourney = () => {
   const [searchQuery, setSearchQuery] = useState('');

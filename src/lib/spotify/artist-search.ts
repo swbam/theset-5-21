@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+// import { supabase } from '@/integrations/supabase/client'; // Removed unused import
 import { toast } from 'sonner';
 import { getAccessToken } from './auth'; // Relies on client-side auth handling
 import type { SpotifyArtist } from './types'; // Assuming types are still in ./types

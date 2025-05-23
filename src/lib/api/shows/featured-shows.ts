@@ -1,4 +1,4 @@
-import { toast } from "sonner";
+// import { toast } from "sonner"; // Removed unused import
 import { callTicketmasterApi } from "../ticketmaster-config";
 import { supabase } from "@/integrations/supabase/client";
 import { ErrorSource, handleError } from "@/lib/error-handling";

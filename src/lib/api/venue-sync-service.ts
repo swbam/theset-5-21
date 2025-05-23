@@ -1,5 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
-import { saveArtistToDatabase, saveShowToDatabase, saveVenueToDatabase } from "./database";
+// saveVenueToDatabase removed from import
+import { saveArtistToDatabase, saveShowToDatabase } from "./database";
 import { getArtistTopTracks } from "../spotify/top-tracks";
 
 /**

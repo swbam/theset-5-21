@@ -1,4 +1,6 @@
-import { Artist, Show, Venue, Song } from '@/lib/types';
+// Artist, Show, Venue imports removed as they are not directly used for type definitions in this file.
+// Song is kept as it is used in SetlistData.
+import { Song } from '@/lib/types';
 
 export type EntityType = 'artist' | 'venue' | 'show' | 'setlist' | 'song';
 export type PriorityLevel = 'high' | 'medium' | 'low';

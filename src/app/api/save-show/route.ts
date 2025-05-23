@@ -1,6 +1,6 @@
 import { adminClient } from '@/lib/db'; // Use the server-side admin client
-import { saveArtistToDatabase, saveVenueToDatabase } from '@/lib/api/database'; // Corrected import path
-import { fetchAndStoreArtistTracks } from '@/lib/api/database'; // Correct import
+// import { saveArtistToDatabase, saveVenueToDatabase } from '@/lib/api/database'; // Removed unused import
+// import { fetchAndStoreArtistTracks } from '@/lib/api/database'; // Removed unused import
 import type { Show } from '@/lib/types'; // Import Show type from types file
 
 // Function to create a setlist directly (using admin client)
@@ -221,7 +221,7 @@ async function saveShowWithAdmin(show: Show, triggeredBySync: boolean = false) {
 
     // --- Save Artist (using admin client) ---
     let artistId = show.artist_id;
-    let artistNameForTracks = show.artist?.name || 'Artist'; // Need name for track fetching logs
+    // let artistNameForTracks = show.artist?.name || 'Artist'; // Commented out: Unused variable
     if (show.artist && typeof show.artist === 'object') {
         // Replicate the upsert logic directly with adminClient
         console.log(`[API/save-show] Attempting to upsert artist: ID=${show.artist.id}, Name=${show.artist.name}`); // Log before
@@ -244,7 +244,7 @@ async function saveShowWithAdmin(show: Show, triggeredBySync: boolean = false) {
         }
         console.log(`[API/save-show] Artist upsert successful. Result:`, savedArtist); // Log success
         artistId = savedArtist.id;
-        artistNameForTracks = savedArtist.name; // Update name from saved data
+        // artistNameForTracks = savedArtist.name; // Commented out: Unused variable
 
         // Track fetching will be handled by saveArtistToDatabase called during background sync
     } else {

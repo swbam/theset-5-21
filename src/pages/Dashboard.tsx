@@ -110,7 +110,7 @@ const Dashboard = () => {
         month: 'short',
         day: 'numeric'
       });
-    } catch (e) {
+    } catch (_e) { // e prefixed with _
       return 'TBD';
     }
   }

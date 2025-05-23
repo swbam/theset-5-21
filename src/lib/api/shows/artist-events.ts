@@ -1,7 +1,7 @@
 
-import { toast } from "sonner";
+// import { toast } from "sonner"; // Removed unused import
 import { callTicketmasterApi } from "../ticketmaster-config";
-import { supabase } from "@/integrations/supabase/client";
+// import { supabase } from "@/integrations/supabase/client"; // Removed unused import
 
 /**
  * Fetch upcoming shows for an artist
@@ -45,16 +45,16 @@ export async function fetchArtistEvents(artistIdentifier: string): Promise<any[]
     
     const shows = data._embedded.events.map((event: any) => {
       // Get artist info from the event
-      let artistName = '';
+      // let artistName = ''; // Commented out: Unused variable
       let artistId = '';
       
       if (event._embedded?.attractions && event._embedded.attractions.length > 0) {
         const attraction = event._embedded.attractions[0];
-        artistName = attraction.name;
+        // artistName = attraction.name; // Commented out: Unused variable
         artistId = attraction.id;
       } else {
         // Fallback to extracting from event name
-        artistName = event.name.split(' at ')[0].split(' - ')[0].trim();
+        // artistName = event.name.split(' at ')[0].split(' - ')[0].trim(); // Commented out: Unused variable
         artistId = artistIdentifier;
       }
       

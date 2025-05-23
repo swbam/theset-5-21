@@ -24,14 +24,14 @@ interface LinkProps {
 
 export default function Link({
   href,
-  as,
+  // as, // Removed unused prop
   replace,
-  scroll,
-  passHref,
-  shallow,
-  prefetch,
-  locale,
-  legacyBehavior,
+  // scroll, // Removed unused prop
+  // passHref, // Removed unused prop
+  // shallow, // Removed unused prop
+  // prefetch, // Removed unused prop
+  // locale, // Removed unused prop
+  // legacyBehavior, // Removed unused prop
   children,
   ...props
 }: LinkProps) {

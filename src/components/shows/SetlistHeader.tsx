@@ -1,19 +1,21 @@
 
 import React from 'react';
-import { Users, Info } from 'lucide-react';
+// Info import removed
+import { Users } from 'lucide-react';
 import { CardTitle, CardDescription } from '@/components/ui/card';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import ShareSetlistButton from '@/components/setlist/ShareSetlistButton';
 
 interface SetlistHeaderProps {
-  isConnected: boolean;
+  // isConnected: boolean; // Removed unused prop
   totalVotes: number;
   showId: string;
   showName: string;
   artistName: string;
 }
 
-const SetlistHeader = ({ isConnected, totalVotes, showId, showName, artistName }: SetlistHeaderProps) => {
+// isConnected removed from destructuring
+const SetlistHeader = ({ totalVotes, showId, showName, artistName }: SetlistHeaderProps) => {
   return (
     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-4 border-b border-white/10">
       <div>

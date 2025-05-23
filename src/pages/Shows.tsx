@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, PlusCircle, Calendar } from 'lucide-react';
+// Calendar import removed
+import { Search, PlusCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link } from 'react-router-dom';

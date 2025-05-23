@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react'; // Added useMemo
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { VenueSyncService } from '@/lib/sync/venue-service';
 import { ArtistSyncService } from '@/lib/sync/artist-service';
-import { Venue, Show } from '@/lib/types'; // Assuming Show type includes artist_external_id
+import { Venue } from '@/lib/types'; // Show import removed
 import { toast } from 'sonner'; // Using Sonner for notifications as per rules
 
 const AdminVenueImport = () => {
@@ -13,8 +13,9 @@ const AdminVenueImport = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [importStatus, setImportStatus] = useState<Record<string, string>>({}); // venueId: status message
 
-  const venueSyncService = new VenueSyncService();
-  const artistSyncService = new ArtistSyncService();
+  // Memoize service instances
+  const venueSyncService = useMemo(() => new VenueSyncService(), []);
+  const artistSyncService = useMemo(() => new ArtistSyncService(), []);
 
   const handleSearch = useCallback(async () => {
     if (!searchTerm.trim()) {
@@ -36,7 +37,7 @@ const AdminVenueImport = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [searchTerm, venueSyncService]);
+  }, [searchTerm, venueSyncService]); // Dependencies are now stable
 
   const handleImport = useCallback(async (venue: Venue) => {
     if (!venue.external_id) {
@@ -117,7 +118,7 @@ const AdminVenueImport = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [venueSyncService, artistSyncService]);
+  }, [venueSyncService, artistSyncService]); // Dependencies are now stable
 
   return (
     <Card>

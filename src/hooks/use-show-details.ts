@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState, useEffect, useCallback } from 'react';
+// useEffect removed from import
+import { useState, useCallback } from 'react';
 import { fetchShowDetails } from '@/lib/ticketmaster';
 import { searchArtists } from '@/lib/spotify';
-import { toast } from 'sonner';
+// import { toast } from 'sonner'; // Removed unused import
 import { supabase } from '@/integrations/supabase/client';
 // Removed import for createSetlistDirectly as setlist creation is handled server-side by Edge Functions
 import { v4 as uuidv4 } from 'uuid';
@@ -78,7 +79,7 @@ export function useShowDetails(id: string | undefined) {
       if (!id) throw new Error("Show ID is required");
       
       // First check if show exists in database
-      const dbShow = await checkShowInDatabase(id);
+      // const dbShow = await checkShowInDatabase(id); // dbShow is unused
       
       // Whether or not show was in database, fetch fresh details
       const showDetails = await fetchShowDetails(id);

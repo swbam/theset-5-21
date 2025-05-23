@@ -154,7 +154,7 @@ serve(async (req: Request) => {
           }
           const tmArtist = event._embedded?.attractions?.[0];
           if (!tmArtist || !tmArtist.id) throw new Error("Missing TM artist info.");
-          let { data: existingArtist, error: artistFetchErr } = await supabaseClient
+          const { data: existingArtist, error: artistFetchErr } = await supabaseClient // Changed let to const
             .from('artists').select('id').eq('ticketmaster_artist_id', tmArtist.id).single();
           if (artistFetchErr && artistFetchErr.code !== 'PGRST116') { processingError = artistFetchErr; throw processingError; }
           if (!existingArtist) {
@@ -165,7 +165,7 @@ serve(async (req: Request) => {
 
           const tmVenue = event._embedded?.venues?.[0];
           if (!tmVenue || !tmVenue.id) throw new Error("Missing TM venue info.");
-          let { data: existingVenue, error: venueFetchErr } = await supabaseClient
+          const { data: existingVenue, error: venueFetchErr } = await supabaseClient // Changed let to const
             .from('venues').select('id').eq('ticketmaster_venue_id', tmVenue.id).single();
           if (venueFetchErr && venueFetchErr.code !== 'PGRST116') { processingError = venueFetchErr; throw processingError; }
           if (!existingVenue) {

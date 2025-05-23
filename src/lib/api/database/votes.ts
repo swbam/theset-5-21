@@ -24,7 +24,7 @@ export async function addVoteToSong(songId: string, userId: string) {
     }
     
     // Create the vote in a transaction with incrementing the vote count
-    const { data, error } = await supabase.rpc('add_song_vote', {
+    const { data: _data, error } = await supabase.rpc('add_song_vote', { // data prefixed with _
       p_song_id: songId,
       p_user_id: userId
     });

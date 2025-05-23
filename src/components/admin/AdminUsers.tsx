@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react'; // Added useCallback
 import { supabase } from '@/integrations/supabase/client';
 import { 
   Table, 
@@ -23,7 +23,7 @@ const AdminUsers = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => { // Wrapped in useCallback
     try {
       setLoading(true);
       
@@ -46,11 +46,11 @@ const AdminUsers = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchQuery, supabase]); // supabase added as a stable dependency, setLoading/setUsers are stable
   
   useEffect(() => {
     fetchUsers();
-  }, [searchQuery]);
+  }, [fetchUsers]); // searchQuery removed, fetchUsers added
   
   const handleRefresh = async () => {
     setRefreshing(true);

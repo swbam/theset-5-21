@@ -13,7 +13,7 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
  * This component allows for consistent styling and behavior across the app.
  */
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  ({ href, children, className, asChild = false, ...props }, ref) => {
+  ({ href, children, className, /* asChild = false, */ ...props }, ref) => { // asChild commented out
     // For client-side navigation, we would normally use Next.js Link component
     // But since we're having issues with its import, we'll use a regular anchor tag
     // with proper styling and behavior

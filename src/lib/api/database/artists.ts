@@ -1,7 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 import { getArtistAllTracks } from "@/lib/spotify";
-import { toast } from "sonner";
-import { getStoredTracksForArtist, updateArtistStoredTracks } from "./tracks";
+// import { toast } from "sonner"; // Removed unused import
+// import { getStoredTracksForArtist, updateArtistStoredTracks } from "./tracks"; // Removed unused imports
 
 /**
  * Save artist to database

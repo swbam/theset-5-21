@@ -126,7 +126,7 @@ export const signInWithProvider = async (provider: 'spotify' | 'google') => {
 };
 
 // Connection status tracking
-let isConnected = false;
+// let isConnected = false; // Removed unused variable
 let reconnectAttempts = 0;
 const MAX_RECONNECT_ATTEMPTS = 5;
 const RECONNECT_INTERVAL = 3000; // 3 seconds
@@ -159,15 +159,15 @@ export function subscribeToTable(
       .subscribe(status => {
         if (status === 'SUBSCRIBED') {
           console.log(`Successfully subscribed to ${table} changes`);
-          isConnected = true;
+          // isConnected = true; // Removed assignment to unused variable
           reconnectAttempts = 0; // Reset counter on successful connection
         } else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') {
           console.error(`Error connecting to ${table} channel:`, status);
-          isConnected = false;
+          // isConnected = false; // Removed assignment to unused variable
           handleReconnect(table, callback);
         } else if (status === 'TIMED_OUT') {
           console.error('Connection timed out');
-          isConnected = false;
+          // isConnected = false; // Removed assignment to unused variable
           handleReconnect(table, callback);
         } else {
           console.log(`Realtime channel status for ${table}:`, status);
@@ -217,15 +217,15 @@ export function subscribeToRecord(
       .subscribe(status => {
         if (status === 'SUBSCRIBED') {
           console.log(`Successfully subscribed to ${table} record changes`);
-          isConnected = true;
+          // isConnected = true; // Removed assignment to unused variable
           reconnectAttempts = 0;
         } else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') {
           console.error(`Error connecting to ${table} record channel:`, status);
-          isConnected = false;
+          // isConnected = false; // Removed assignment to unused variable
           handleRecordReconnect(table, column, value, callback);
         } else if (status === 'TIMED_OUT') {
           console.error('Connection timed out');
-          isConnected = false;
+          // isConnected = false; // Removed assignment to unused variable
           handleRecordReconnect(table, column, value, callback);
         } else {
           console.log(`Realtime channel status for ${table} record:`, status);

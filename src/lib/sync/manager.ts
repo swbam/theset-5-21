@@ -1,5 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
-import { EntityType, SyncResult, SyncOptions, EntityRef } from './types';
+// EntityRef removed from import
+import { EntityType, SyncResult, SyncOptions } from './types';
 import { ShowSyncService } from './show-service';
 import { ArtistSyncService } from './artist-service';
 import { VenueSyncService } from './venue-service';

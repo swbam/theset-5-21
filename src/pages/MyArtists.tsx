@@ -14,7 +14,8 @@ import { supabase } from '@/integrations/supabase/client';
 
 const MyArtists = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, user, session } = useAuth();
+  // session removed from useAuth destructuring
+  const { isAuthenticated, user } = useAuth();
   const [hasSpotifyToken, setHasSpotifyToken] = useState(false);
 
   useEffect(() => {

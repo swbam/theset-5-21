@@ -94,16 +94,16 @@ interface Setlist {
   updated_at?: string;
 }
 
-interface SetlistSong {
-  id?: string;
-  setlist_id: string;
-  song_id: string;
-  position: number;
-  vote_count?: number;
-  is_encore?: boolean;
-  created_at?: string;
-  updated_at?: string;
-}
+// interface SetlistSong { // Removed unused local interface
+//   id?: string;
+//   setlist_id: string;
+//   song_id: string;
+//   position: number;
+//   vote_count?: number;
+//   is_encore?: boolean;
+//   created_at?: string;
+//   updated_at?: string;
+// }
 
 interface SyncJob {
   id: number;
@@ -1234,7 +1234,7 @@ class SyncHandler {
   }
   
   // Setlist sync handler for a specific show
-  async syncSetlist(id: string, referenceData?: Record<string, any>, forceRefresh = false): Promise<Setlist> {
+  async syncSetlist(id: string, referenceData?: Record<string, any>, _forceRefresh = false): Promise<Setlist> { // forceRefresh prefixed
     // id can be internal setlist UUID, show UUID, or setlist.fm ID
     console.log(`[unified-sync] Syncing setlist with ID: ${id}`);
     
@@ -1620,7 +1620,7 @@ class SyncHandler {
           console.log(`[unified-sync] Fetched ${topTracks.length} top tracks for artist ${artistId}`);
           
           // Prepare batch insert data
-          const songsToInsert = topTracks.map((track: any, index: number) => ({
+          const songsToInsert = topTracks.map((track: any, _index: number) => ({ // index prefixed
             name: track.name,
             artist_id: artistId,
             spotify_id: track.id,

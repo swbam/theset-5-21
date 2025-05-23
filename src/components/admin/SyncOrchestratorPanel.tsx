@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react'; // Added useCallback
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ArrowDownUp, Clock, RefreshCw, AlertTriangle, Check, Play, Pause, Info } from 'lucide-react';
+// Removed Pause, Info icons from lucide-react import
+import { ArrowDownUp, Clock, RefreshCw, AlertTriangle, Check, Play } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -55,53 +56,8 @@ export default function SyncOrchestratorPanel({
   
   // Check if we can render this component safely
   const [isSupabaseAvailable, setIsSupabaseAvailable] = useState<boolean>(true);
-  
-  // Check supabase connection on mount
-  useEffect(() => {
-    try {
-      // First, check if the supabase client is available
-      if (!supabase) {
-        console.warn('Supabase client not available');
-        setIsSupabaseAvailable(false);
-        setConnectionError(true);
-        return;
-      }
-      
-      // If we have a client, proceed with connection check
-      checkConnection();
-    } catch (err) {
-      console.error('Error in Supabase initialization:', err);
-      setIsSupabaseAvailable(false);
-      setConnectionError(true);
-    }
-  }, []);
-  
-  async function checkConnection() {
-    if (!isSupabaseAvailable) return;
-    
-    try {
-      // Test the connection with a simple query
-      const { error } = await supabase.from('artists').select('id').limit(1);
-      
-      if (error) {
-        console.error('Supabase connection error:', error);
-        setConnectionError(true);
-      } else {
-        setConnectionError(false);
-        // Only fetch operations if connection is successful
-        fetchOperations();
-        
-        // Setup polling for fresh data
-        const interval = setInterval(fetchOperations, 10000);
-        return () => clearInterval(interval);
-      }
-    } catch (err) {
-      console.error('Error checking Supabase connection:', err);
-      setConnectionError(true);
-    }
-  }
-  
-  async function fetchOperations() {
+
+  const fetchOperations = useCallback(async () => { // Wrapped in useCallback
     // Skip if there's a connection error
     if (connectionError || !isSupabaseAvailable) return;
     
@@ -128,7 +84,52 @@ export default function SyncOrchestratorPanel({
     } finally {
       setLoading(false);
     }
-  }
+  }, [connectionError, isSupabaseAvailable]); // Dependencies for fetchOperations
+
+  const checkConnection = useCallback(async () => { // Wrapped in useCallback
+    if (!isSupabaseAvailable) return;
+    
+    try {
+      // Test the connection with a simple query
+      const { error } = await supabase.from('artists').select('id').limit(1);
+      
+      if (error) {
+        console.error('Supabase connection error:', error);
+        setConnectionError(true);
+      } else {
+        setConnectionError(false);
+        // Only fetch operations if connection is successful
+        fetchOperations(); // Call memoized version
+        
+        // Setup polling for fresh data
+        const interval = setInterval(fetchOperations, 10000); // Call memoized version
+        return () => clearInterval(interval);
+      }
+    } catch (err) {
+      console.error('Error checking Supabase connection:', err);
+      setConnectionError(true);
+    }
+  }, [isSupabaseAvailable, supabase, fetchOperations]); // Dependencies for checkConnection
+  
+  // Check supabase connection on mount
+  useEffect(() => {
+    try {
+      // First, check if the supabase client is available
+      if (!supabase) {
+        console.warn('Supabase client not available');
+        setIsSupabaseAvailable(false);
+        setConnectionError(true);
+        return;
+      }
+      
+      // If we have a client, proceed with connection check
+      checkConnection(); // Call memoized version
+    } catch (err) {
+      console.error('Error in Supabase initialization:', err);
+      setIsSupabaseAvailable(false);
+      setConnectionError(true);
+    }
+  }, [checkConnection]); // useEffect depends on memoized checkConnection
   
   async function startSyncOperation() {
     if (!selectedEntityType || !selectedEntityId) {

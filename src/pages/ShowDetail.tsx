@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
+// import { toast } from 'sonner'; // Removed unused import
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ShowHeader from '@/components/shows/ShowHeader';

@@ -16,7 +16,7 @@ const Artists = () => {
   
   const [searchQuery, setSearchQuery] = useState(queryParam);
   const [isSearching, setIsSearching] = useState(!!queryParam);
-  const [isLoading, setIsLoading] = useState(false);
+  const [_isLoading, setIsLoading] = useState(false); // isLoading prefixed with _
   const [activeGenre, setActiveGenre] = useState<string | null>(searchParams.get('genre'));
   
   // Determine if we're on the /shows path
@@ -39,7 +39,7 @@ const Artists = () => {
       setSearchQuery(queryParam);
       setIsSearching(!!queryParam);
     }
-  }, [queryParam]);
+  }, [queryParam, searchQuery]); // searchQuery added to dependency array
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query);

@@ -7,14 +7,15 @@ import { searchArtistsWithEvents } from '@/lib/api/artist'; // Assuming this was
 import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+// Removed unused Table components
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from '@/components/ui/table';
 import {
   Card,
   CardContent,
@@ -28,26 +29,27 @@ import {
   AlertDescription,
   AlertTitle,
 } from '@/components/ui/alert';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+// Removed unused Tooltip components
+// import {
+//   Tooltip,
+//   TooltipContent,
+//   TooltipProvider,
+//   TooltipTrigger,
+// } from '@/components/ui/tooltip';
+// import { Badge } from '@/components/ui/badge'; // Removed unused Badge
+// import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'; // Removed unused Avatar
 import { 
   Search, 
   RefreshCw, 
-  Plus, 
-  Calendar, 
-  Music, 
+  // Plus, // Removed unused icon
+  // Calendar, // Removed unused icon
+  // Music, // Removed unused icon
   CheckCircle, 
   AlertCircle, 
   Loader2, 
-  MapPin, 
-  Building,
-  Download,
+  // MapPin, // Removed unused icon
+  // Building, // Removed unused icon
+  // Download, // Removed unused icon
   AlertTriangle
 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -63,52 +65,53 @@ interface ArtistSearchResult extends ArtistWithEvents {
   updated_at?: string; // Likely from DB check, might not be needed here anymore
 }
 // Use BaseArtist for the payload to the Edge Function
-import type { Artist as BaseArtist } from '@/lib/types';
+// import type { Artist as BaseArtist } from '@/lib/types'; // Removed unused type import
 import type { ArtistWithEvents } from '@/lib/api/artist'; // Import the search result type
 
-interface Venue {
-  id: string;
-  name: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  image_url?: string;
-  updated_at?: string;
-  imported?: boolean;
-  savedShowsCount?: number;
-}
+// Removed unused local interface Show
+// interface Venue {
+//   id: string;
+//   name: string;
+//   city?: string;
+//   state?: string;
+//   country?: string;
+//   image_url?: string;
+//   updated_at?: string;
+//   imported?: boolean;
+//   savedShowsCount?: number;
+// }
 
-interface Show {
-  id: string;
-  name: string;
-  date: string;
-  ticket_url?: string;
-  image_url?: string;
-  artist_id: string;
-  venue?: Venue;
-  venue_id?: string;
-  updated_at?: string;
-  _embedded?: {
-    venues?: Array<{
-      id: string;
-      name: string;
-      city?: { name: string };
-      state?: { name: string };
-      country?: { name: string };
-    }>;
-  };
-  dates?: {
-    start?: {
-      dateTime: string;
-    };
-  };
-  images?: Array<{
-    url: string;
-    ratio?: string;
-    width?: number;
-  }>;
-  url?: string;
-}
+// interface Show {
+//   id: string;
+//   name: string;
+//   date: string;
+//   ticket_url?: string;
+//   image_url?: string;
+//   artist_id: string;
+//   venue?: Venue;
+//   venue_id?: string;
+//   updated_at?: string;
+//   _embedded?: {
+//     venues?: Array<{
+//       id: string;
+//       name: string;
+//       city?: { name: string };
+//       state?: { name: string };
+//       country?: { name: string };
+//     }>;
+//   };
+//   dates?: {
+//     start?: {
+//       dateTime: string;
+//     };
+//   };
+//   images?: Array<{
+//     url: string;
+//     ratio?: string;
+//     width?: number;
+//   }>;
+//   url?: string;
+// }
 
 interface ImportStatusItem {
   type: 'artist' | 'catalog' | 'shows' | 'setlists' | 'sync' | 'complete' | 'error';
@@ -125,13 +128,13 @@ const AdminArtistImport = () => {
   const [syncInProgress, setSyncInProgress] = useState(false);
   const [syncResult, setSyncResult] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [artistSearchQuery, setArtistSearchQuery] = useState('');
-  const [artistResults, setArtistResults] = useState<ArtistSearchResult[]>([]); // Use updated type
+  const [artistSearchQuery, /* setArtistSearchQuery */] = useState(''); // setArtistSearchQuery commented out as unused
+  const [/* artistResults */, setArtistResults] = useState<ArtistSearchResult[]>([]); // artistResults commented out as unused
   const [importing, setImporting] = useState<Record<string, boolean>>({});
   const [importStatus, setImportStatus] = useState<Record<string, ImportStatusItem>>({});
   const [generalStatus, setGeneralStatus] = useState<{ message: string; success: boolean } | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [searchError, setSearchError] = useState('');
+  const [searchError, setSearchError] = useState(''); // searchError IS used
   const [recentImports, setRecentImports] = useState<string[]>([]);
   const [syncActivity, setSyncActivity] = useState<any[]>([]);
 
@@ -303,17 +306,99 @@ const AdminArtistImport = () => {
   };
 
   // Function to handle key press in search input
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleArtistSearch();
-    }
-  };
+  // const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === 'Enter') {
+  //     handleArtistSearch();
+  //   }
+  // }; // Commented out as unused
 
   // Function to import an artist and their upcoming shows using the new data flow
   // Refactored to invoke the 'import-artist' Edge Function
-  const handleImportArtist = async (artist: ArtistSearchResult) => {
-    const artistId = artist.id; // Use TM ID as the key for status/loading
-    if (!artistId || !artist.name) {
+  // const handleImportArtist = async (artist: ArtistSearchResult) => {
+  //   const artistId = artist.id; // Use TM ID as the key for status/loading
+  //   if (!artistId || !artist.name) {
+  //     console.error("Invalid artist data for import:", artist);
+  //     setImportStatus(prev => ({ 
+  //       ...prev, 
+  //       [artistId]: { 
+  //         type: 'error', 
+  //         message: 'Invalid artist data provided.', 
+  //         success: false,
+  //         timestamp: new Date().toISOString()
+  //       } 
+  //     }));
+  //     return;
+  //   }
+
+  //   console.log(`[Admin Import] Triggering orchestrated import for artist: ${artist.name} (ID: ${artistId})`);
+  //   setImporting(prev => ({ ...prev, [artistId]: true }));
+  //   setImportStatus(prev => ({ 
+  //     ...prev, 
+  //     [artistId]: { 
+  //       type: 'sync', 
+  //       message: 'Initiating artist sync...',
+  //       timestamp: new Date().toISOString()
+  //     } 
+  //   }));
+
+  //   try {
+  //     // Use the orchestrator to sync the artist
+  //     const { data, error } = await supabase.functions.invoke('orchestrate-sync', {
+  //       body: { 
+  //         task: 'sync-artist',
+  //         entityType: 'artist',
+  //         entityId: artistId,
+  //         priority: 'high'
+  //       }
+  //     });
+      
+  //     if (error) throw error;
+      
+  //     if (!data.success) {
+  //       throw new Error(data.error || 'Unknown error during sync');
+  //     }
+      
+  //     // Update status to show artist was imported
+  //     setImportStatus(prev => ({ 
+  //       ...prev, 
+  //       [artistId]: { 
+  //         type: 'artist', 
+  //         message: `Artist "${artist.name}" imported successfully!`,
+  //         success: true,
+  //         timestamp: new Date().toISOString()
+  //       } 
+  //     }));
+      
+  //     // Add to recent imports
+  //     setRecentImports(prev => [artistId, ...prev.filter(id => id !== artistId)].slice(0, 5));
+      
+  //     // Fetch upcoming shows automatically
+  //     if (artist.upcomingEvents && artist.upcomingEvents > 0) {
+  //       await importArtistShows(artistId, data.data.id, artist.name);
+  //     }
+      
+  //     // Import Spotify catalog if available
+  //     if (data.data?.spotify_id) {
+  //       await importSpotifyCatalog(data.data.id, artist.name);
+  //     }
+      
+  //     // Refresh sync activity
+  //     setTimeout(loadSyncActivity, 1000);
+  //   } catch (error) {
+  //     console.error(`[Admin Import] Error importing artist ${artistId}:`, error);
+  //     setImportStatus(prev => ({ 
+  //       ...prev, 
+  //       [artistId]: { 
+  //         type: 'error', 
+  //         message: `Failed to import artist: ${error instanceof Error ? error.message : 'Unknown error'}`,
+  //         success: false,
+  //         timestamp: new Date().toISOString()
+  //       } 
+  //     }));
+  //   } finally {
+  //     setImporting(prev => ({ ...prev, [artistId]: false }));
+  //   }
+  // }; // Commented out as unused
       console.error("Invalid artist data for import:", artist);
       setImportStatus(prev => ({ 
         ...prev, 

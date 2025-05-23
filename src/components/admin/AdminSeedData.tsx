@@ -131,7 +131,7 @@ const AdminSeedData = () => {
       for (const artist of artists) {
         for (let i = 0; i < 3; i++) {
           const randomVenue = venues[Math.floor(Math.random() * venues.length)];
-          const [venueName, venueLocation] = randomVenue.split(', ', 2);
+          const [venueName] = randomVenue.split(', ', 2); // venueLocation removed
           const daysToAdd = [7, 14, 30][i];
           const date = new Date();
           date.setDate(date.getDate() + daysToAdd);

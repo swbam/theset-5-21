@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React from 'react'; // useEffect removed
 import { useParams } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';

@@ -1,5 +1,5 @@
 
-import { getAccessToken } from './auth';
+// import { getAccessToken } from './auth'; // Removed unused import
 import { getStoredTracksFromDb } from './utils';
 import { getArtistAllTracks } from './all-tracks';
 import { SpotifyTrack, SpotifyTracksResponse } from './types';

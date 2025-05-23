@@ -17,7 +17,7 @@ apiApp.prepare().then(() => {
     try {
       // Parse the URL
       const parsedUrl = parse(req.url, true);
-      const { pathname, query } = parsedUrl;
+      const { pathname, query: _query } = parsedUrl; // query renamed to _query to indicate it's not directly used in this scope
 
       // Handle API routes only, redirect other requests to the Vite frontend
       if (pathname.startsWith('/api')) {

@@ -62,9 +62,11 @@ export async function searchArtistsWithEvents(
       }
 
       // Extract upcoming shows count
-      let upcomingShows = 0;
-      if (attraction.upcomingEvents && typeof attraction.upcomingEvents._total === 'number') {
-        upcomingShows = attraction.upcomingEvents._total;
+      const upcomingShows = attraction.upcomingEvents?._total || 0;
+      // The if condition is redundant if we use optional chaining and default to 0.
+      // if (attraction.upcomingEvents && typeof attraction.upcomingEvents._total === 'number') {
+      //   upcomingShows = attraction.upcomingEvents._total;
+      // }
       }
 
       // Extract genres
@@ -140,7 +142,7 @@ export async function fetchFeaturedArtists(): Promise<ArtistWithEvents[]> {
         const sortedImages = [...attraction.images].sort((a, b) => (b.width || 0) - (a.width || 0));
         image = sortedImages[0]?.url;
       }
-      let upcomingShows = attraction.upcomingEvents?._total || 0;
+      const upcomingShows = attraction.upcomingEvents?._total || 0; // Changed to const
       let genres: string[] = [];
       if (attraction.classifications?.[0]) {
         const classification = attraction.classifications[0];
@@ -212,9 +214,11 @@ export async function fetchArtistById(artistId: string): Promise<ArtistWithEvent
     }
 
     // Extract upcoming shows count
-    let upcomingShows = 0;
-    if (response.upcomingEvents && typeof response.upcomingEvents._total === 'number') {
-      upcomingShows = response.upcomingEvents._total;
+    const upcomingShows = response.upcomingEvents?._total || 0;
+    // The if condition is redundant with the || 0
+    // if (response.upcomingEvents && typeof response.upcomingEvents._total === 'number') {
+    //   upcomingShows = response.upcomingEvents._total;
+    // }
     }
 
     // Extract genres

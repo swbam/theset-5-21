@@ -61,7 +61,7 @@ const Auth = () => {
     loginWithSpotify, 
     signup 
   } = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Removed unused variable
   const location = useLocation();
   const state = location.state as LocationState;
   const from = state?.from?.pathname || '/';

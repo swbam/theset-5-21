@@ -93,8 +93,8 @@ export function useShowDetail(id: string | undefined) {
   const {
     tracks = [],
     isLoading: isLoadingTracks = false,
-    isError: isTracksError = false,
-    error: tracksError = null,
+    isError: _isTracksError = false, // Prefixed
+    error: _tracksError = null, // Prefixed
     initialSongs = [],
     storedTracksData = [],
     getAvailableTracks = (setlist: any[]) => [],
@@ -102,7 +102,7 @@ export function useShowDetail(id: string | undefined) {
   
   // For backward compatibility
   const isLoadingAllTracks = isLoadingTracks;
-  const allTracksData = { tracks };
+  const allTracksData = useMemo(() => ({ tracks }), [tracks]); // Memoized allTracksData
   
   // Song management (voting, adding songs)
   const {

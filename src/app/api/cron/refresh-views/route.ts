@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     }
     
     // Call the database function to refresh all materialized views
-    const { data, error } = await supabase.rpc('refresh_all_materialized_views');
+    const { data: _data, error } = await supabase.rpc('refresh_all_materialized_views'); // data renamed to _data
     
     if (error) {
       console.error('Error refreshing materialized views:', error);

@@ -10,7 +10,7 @@ import { APIClientManager } from '@/lib/sync/api-client';
 // Initialize services (Keep for now, might be used by other cases)
 const artistService = new ArtistSyncService();
 const venueService = new VenueSyncService();
-const showService = new ShowSyncService();
+// const showService = new ShowSyncService(); // Removed unused service
 const songService = new SongSyncService();
 const apiClient = new APIClientManager(); // Initialize API client
 
@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
 }
 
 // Add OPTIONS handler for CORS preflight requests
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS(_request: NextRequest) { // request prefixed with _
   return new NextResponse(null, {
     status: 204,
     headers: {

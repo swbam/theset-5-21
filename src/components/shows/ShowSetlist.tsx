@@ -32,8 +32,8 @@ interface ShowSetlistProps {
   selectedTrack: string;
   setSelectedTrack: (trackId: string) => void;
   handleAddSong: () => void;
-  isAuthenticated: boolean;
-  login: () => void;
+  // isAuthenticated: boolean; // Removed unused prop
+  // login: () => void; // Removed unused prop
   anonymousVoteCount?: number;
 }
 
@@ -45,14 +45,14 @@ const ShowSetlist = ({
   selectedTrack,
   setSelectedTrack,
   handleAddSong,
-  isAuthenticated,
-  login,
+  // isAuthenticated, // Removed unused prop
+  // login, // Removed unused prop
   anonymousVoteCount = 0
 }: ShowSetlistProps) => {
   // Optimize rendering with proper memoization
   useEffect(() => {
-    console.log("ShowSetlist component mounted with setlist size:", setlist?.length || 0);
-  }, []);
+    console.log("ShowSetlist component mounted/updated with setlist size:", setlist?.length || 0);
+  }, [setlist]); // Added setlist as a dependency
   
   const handleTrackSelect = (value: string) => {
     setSelectedTrack(value);

@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     // Parse query parameters
     const url = new URL(request.url);
     const limit = parseInt(url.searchParams.get('limit') || '10', 10);
-    const sync = url.searchParams.get('sync') === 'true';
+    // const sync = url.searchParams.get('sync') === 'true'; // Removed unused variable
     
     // If sync is requested, update trending shows in the background
     // Removed call to non-existent syncTrendingShows

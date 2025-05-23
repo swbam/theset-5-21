@@ -1,5 +1,7 @@
 import { retryableFetch } from '@/lib/retry';
-import type { Show, Artist, Venue as AppVenue } from '@/lib/types';
+// Artist and AppVenue (Venue alias) removed as they are not explicitly used for type annotations in this file.
+// The types for nested artist and venue in Show are inferred from the Show type itself.
+import type { Show } from '@/lib/types';
 
 // Type for Ticketmaster Image object (duplicate from shared types, consider consolidating later)
 interface TicketmasterImage {

@@ -1,7 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 
 // API handler for setting the current user as admin
-export async function handler(req: Request) {
+export async function handler(_req: Request) { // req prefixed with _
   try {
     // Get session to check authentication
     const { data: { session } } = await supabase.auth.getSession();

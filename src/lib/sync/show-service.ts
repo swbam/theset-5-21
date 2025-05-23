@@ -79,12 +79,12 @@ export class ShowSyncService {
    * Sync a show by ID
    */
   // Modified syncShow to primarily invoke the sync-show Edge Function
-  async syncShow(showExternalId: string, options?: SyncOptions): Promise<SyncResult<Show>> {
+  async syncShow(showExternalId: string, _options?: SyncOptions): Promise<SyncResult<Show>> { // options prefixed
     // The 'showId' parameter now refers to the external ID (e.g., Ticketmaster ID)
     try {
       // Optional: Add incremental sync check here if desired, before invoking function
-      // const syncStatus = await this.syncService.getSyncStatus(showExternalId, 'show', options);
-      // if (!syncStatus.needsSync && !options?.force) { ... return existing data ... }
+      // const syncStatus = await this.syncService.getSyncStatus(showExternalId, 'show', _options); // options prefixed
+      // if (!syncStatus.needsSync && !_options?.force) { ... return existing data ... }
 
       console.log(`[ShowService] Invoking sync-show function for external ID: ${showExternalId}`);
       const { data, error: invokeError } = await supabase.functions.invoke('sync-show', {
@@ -149,8 +149,8 @@ export class ShowSyncService {
       if (tmData && tmData._embedded) {
         // Process Ticketmaster data
         // Access _embedded directly for single event fetch
-        const artistId = tmData._embedded?.attractions?.[0]?.id;
-        const venueId = tmData._embedded?.venues?.[0]?.id;
+        // const artistId = tmData._embedded?.attractions?.[0]?.id; // Commented out: Unused variable
+        // const venueId = tmData._embedded?.venues?.[0]?.id; // Commented out: Unused variable
         
         // Align with DB schema (schema.sql)
         show = {

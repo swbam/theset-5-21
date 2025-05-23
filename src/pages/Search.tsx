@@ -34,7 +34,7 @@ const Search = () => {
       setSearchQuery(queryParam);
       setDebouncedQuery(queryParam);
     }
-  }, [queryParam]);
+  }, [queryParam, searchQuery]); // searchQuery added to dependency array
 
   // Debounce the search query to avoid making too many API calls
   useEffect(() => {
@@ -57,7 +57,8 @@ const Search = () => {
   
   // Fetch artists with upcoming shows from Ticketmaster
   // Use the correct return type from the query function
-  const { data: artists = [], isLoading, error } = useQuery<ArtistWithEvents[]>({
+  // error variable prefixed with _ as it's unused
+  const { data: artists = [], isLoading, error: _error } = useQuery<ArtistWithEvents[]>({
     queryKey: ['artistsWithEvents', debouncedQuery],
     queryFn: () => searchArtistsWithEvents(debouncedQuery),
     enabled: debouncedQuery.length > 2,

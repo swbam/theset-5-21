@@ -1,6 +1,7 @@
 
 import { supabase } from '@/integrations/supabase/client';
-import { SpotifyTrack, SpotifyTracksResponse } from './types';
+// SpotifyTracksResponse removed from import
+import { SpotifyTrack } from './types';
 import { Json } from '@/integrations/supabase/types';
 
 // Safely convert stored tracks from Json to SpotifyTrack[]

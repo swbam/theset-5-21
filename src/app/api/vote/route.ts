@@ -2,7 +2,7 @@
 // @ts-ignore: Cannot find module 'next/server' type declarations
 import { NextResponse } from 'next/server';
 // @ts-ignore: Cannot find module 'next/headers' type declarations
-import { cookies } from 'next/headers';
+// import { cookies } from 'next/headers'; // Removed unused import
 import { adminClient, supabase } from '../../../lib/db';
 
 // Define types for better code safety
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
     }
     
     // Check for existing vote
-    const { data: existingVote, error: voteError } = await admin
+    const { data: existingVote, error: _voteError } = await admin // voteError prefixed with _
       .from('votes')
       .select('id')
       .eq('user_id', userId)

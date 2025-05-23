@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Music, PlusCircle, Users, Award } from 'lucide-react';
+// PlusCircle removed from import
+import { Search, Music, Users, Award } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -34,10 +35,8 @@ const Hero = () => {
   // Only query when we have at least 2 characters
   const shouldFetch = debouncedQuery.length > 1;
 
-  const { 
-    data: artists = [], 
-    isLoading 
-  } = useQuery({
+  // artists and isLoading removed from destructuring as they are unused in this component
+  useQuery({
     queryKey: ['artistSearch', debouncedQuery],
     queryFn: () => searchArtistsWithEvents(debouncedQuery),
     enabled: shouldFetch,

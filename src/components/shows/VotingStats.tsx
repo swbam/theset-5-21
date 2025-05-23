@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Trophy, Users, Info, Clock } from 'lucide-react';
+// Info and Clock imports removed
+import { Trophy, Users } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 

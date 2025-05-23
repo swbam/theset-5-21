@@ -1,5 +1,5 @@
 
-import { Json } from '@/integrations/supabase/types';
+// import { Json } from '@/integrations/supabase/types'; // Removed unused import
 
 // Track interface for type safety
 export interface SpotifyTrack {

@@ -1,7 +1,7 @@
-import { toast } from "sonner";
+// import { toast } from "sonner"; // Removed unused import
 import { callTicketmasterApi } from "../ticketmaster-config";
 import { saveArtistToDatabase } from "../database-utils";
-import { fetchAndStoreArtistTracks } from "../database";
+// import { fetchAndStoreArtistTracks } from "../database"; // Removed unused import
 import { getArtistByName } from "@/lib/spotify";
 import { supabase } from "@/integrations/supabase/client";
 import { ErrorSource, handleError } from "@/lib/error-handling";
@@ -198,7 +198,7 @@ async function searchFallbackArtists(query: string, limit = 10): Promise<any[]> 
 /**
  * Helper function to process and save artists from Ticketmaster response
  */
-async function processAndSaveTicketmasterArtists(data: any, limit: number): Promise<any[]> {
+async function processAndSaveTicketmasterArtists(data: any, _limit: number): Promise<any[]> { // limit prefixed with _
   if (!data || !data._embedded || !data._embedded.events) {
     console.warn("Invalid Ticketmaster data format for processing artists");
     return [];

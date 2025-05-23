@@ -1,4 +1,5 @@
-import { supabase, subscribeToTable, subscribeToRecord } from "@/integrations/supabase/client";
+// subscribeToTable removed from import
+import { supabase, subscribeToRecord } from "@/integrations/supabase/client";
 import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
 
 /**

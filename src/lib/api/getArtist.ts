@@ -1,6 +1,7 @@
 import { supabase } from '@/integrations/supabase/client';
 import { getArtistTopTracks as fetchSpotifyTopTracks } from '@/lib/spotify/top-tracks';
-import { SpotifyTrack, SpotifyTracksResponse } from '@/lib/spotify/types';
+// SpotifyTracksResponse removed from import
+import { SpotifyTrack } from '@/lib/spotify/types';
 
 // Cache durations in milliseconds
 const CACHE_DURATIONS = {

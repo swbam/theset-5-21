@@ -1,6 +1,6 @@
 // @ts-check
 
-import { FlatCompat } from '@eslint/eslintrc';
+// import { FlatCompat } from '@eslint/eslintrc'; // Removed unused import and variable
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -8,7 +8,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 
 // Legacy config adapter
-const compat = new FlatCompat();
+// const compat = new FlatCompat(); // Removed unused variable
 
 export default tseslint.config(
   eslint.configs.recommended,

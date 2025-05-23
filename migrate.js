@@ -9,8 +9,8 @@
 
 // Import required modules
 import { createClient } from '@supabase/supabase-js';
-import fs from 'fs';
-import path from 'path';
+// import fs from 'fs'; // Removed unused import
+// import path from 'path'; // Removed unused import
 import readline from 'readline';
 import dotenv from 'dotenv';
 
